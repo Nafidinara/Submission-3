@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Movie Catalogue</string>
+    <string name="language">Change Language</string>
+    <string name="fragment_movie_title">Movie</string>
+    <string name="fragment_tvshow_title">TV Show</string>
+    <string name="content_desc">this image contain poster of movie</string>
+    <string name="rating_subtitle">Rating</string>
+    <string name="language_subtitle">Language</string>
+    <string name="vote_count">Vote</string>
+    <string name="storyline_subtitle">Storyline</string>
+</resources>

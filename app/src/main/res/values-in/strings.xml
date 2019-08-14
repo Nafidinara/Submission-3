@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Katalog Movie</string>
+    <string name="language">Ubah Bahasa</string>
+    <string name="fragment_movie_title">Film</string>
+    <string name="fragment_tvshow_title">Acara TV</string>
+    <string name="content_desc">Foto ini berisi poster film</string>
+    <string name="rating_subtitle">Peringkat</string>
+    <string name="language_subtitle">Bahasa</string>
+    <string name="vote_count">Voting</string>
+    <string name="storyline_subtitle">Alur Cerita</string>
+</resources>
