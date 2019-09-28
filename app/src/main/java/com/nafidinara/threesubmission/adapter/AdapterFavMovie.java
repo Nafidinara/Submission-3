@@ -16,27 +16,41 @@ import com.nafidinara.threesubmission.activity.DetailMovieActivity;
 import com.nafidinara.threesubmission.model.Movie;
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class AdapterMovie extends RecyclerView.Adapter<AdapterMovie.ViewHolderMovie> {
+public class AdapterFavMovie extends RecyclerView.Adapter<AdapterFavMovie.ViewHolderFavMovie>{
+
     private Context context;
     private ArrayList<Movie> list;
 
-    public AdapterMovie (Context context, ArrayList<Movie>list){
-        this.context = context;
+    public ArrayList<Movie> getList() {
+        return list;
+    }
+
+    public void setList(ArrayList<Movie> list) {
         this.list = list;
+        notifyDataSetChanged();
+    }
+
+    public AdapterFavMovie(Context context) {
+        this.context = context;
+    }
+
+    public void setItems(ArrayList<Movie> items){
+//        list.clear();
+        list.addAll(items);
+        notifyDataSetChanged();
     }
 
     @NonNull
     @Override
-    public ViewHolderMovie onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public AdapterFavMovie.ViewHolderFavMovie onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(context).inflate(R.layout.item,viewGroup,false);
-        return new ViewHolderMovie(v);
+        return new AdapterFavMovie.ViewHolderFavMovie(v);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull AdapterMovie.ViewHolderMovie viewHolderMovie, int i) {
-        viewHolderMovie.bind(list.get(i));
+    public void onBindViewHolder(@NonNull AdapterFavMovie.ViewHolderFavMovie viewHolderFavMovie, int i) {
+        viewHolderFavMovie.bind(list.get(i));
     }
 
     @Override
@@ -44,24 +58,23 @@ public class AdapterMovie extends RecyclerView.Adapter<AdapterMovie.ViewHolderMo
         return list.size();
     }
 
-    public class ViewHolderMovie extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class ViewHolderFavMovie extends RecyclerView.ViewHolder implements View.OnClickListener{
         ImageView image_main;
-        TextView title, release, genre;
-        public ViewHolderMovie(@NonNull View itemView) {
+        TextView title, release, vote;
+        public ViewHolderFavMovie(@NonNull View itemView) {
             super(itemView);
-
             title = itemView.findViewById(R.id.txt_title_items);
             release = itemView.findViewById(R.id.txt_release_items);
             image_main = itemView.findViewById(R.id.img_items);
-            genre = itemView.findViewById(R.id.txt_genre_items);
+            vote = itemView.findViewById(R.id.txt_genre_items);
 
             itemView.setOnClickListener(this);
         }
 
-         void bind(Movie movie) {
+        public void bind(Movie movie) {
             title.setText(movie.getTitle());
             release.setText(movie.getReleaseDate());
-            genre.setText(String.valueOf(movie.getVoteCount()));
+            vote.setText(String.valueOf(movie.getVoteCount()));
 
             Glide.with(itemView.getContext())
                     .load("https://image.tmdb.org/t/p/w500" + movie.getPosterPath())

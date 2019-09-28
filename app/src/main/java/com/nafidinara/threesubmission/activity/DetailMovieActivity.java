@@ -1,5 +1,6 @@
 package com.nafidinara.threesubmission.activity;
 
+import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,10 +9,16 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.support.v7.widget.Toolbar;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.github.ivbaranov.mfb.MaterialFavoriteButton;
 import com.nafidinara.threesubmission.R;
+import com.nafidinara.threesubmission.db.MovieHelper;
 import com.nafidinara.threesubmission.model.Movie;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DetailMovieActivity extends AppCompatActivity {
     public static final String DATA_MOVIE = "data_movie";
@@ -21,16 +28,48 @@ public class DetailMovieActivity extends AppCompatActivity {
     ImageView image_Poster, image_bg;
     ProgressBar progressBar;
     Toolbar toolbar;
+    Movie movie;
+    ArrayList<Movie>list;
+
+    private MovieHelper movieHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
+        final MaterialFavoriteButton favBtn = findViewById(R.id.btn_fav);
+
+        movieHelper = MovieHelper.getInst(getApplicationContext());
+        movieHelper.open();
+        movie = getIntent().getParcelableExtra(DATA_MOVIE);
 
         prepare();
-
         getMovieDetail();
+
+
+        favBtn.setOnFavoriteChangeListener(
+                new MaterialFavoriteButton.OnFavoriteChangeListener() {
+                    @Override
+                    public void onFavoriteChanged(MaterialFavoriteButton buttonView, boolean favorite) {
+                        if (favorite){
+                            list = movieHelper.getAllMovies();
+                            movieHelper.movieInsert(movie);
+                            Toast toast = Toast.makeText(getApplicationContext(),"Ditambahkan Favorite",Toast.LENGTH_SHORT);
+                            toast.show();
+
+                        }
+                        else {
+                            list = movieHelper.getAllMovies();
+                            movieHelper.movieDelete(movie.getTitle());
+                            Toast toast = Toast.makeText(getApplicationContext(),"Dihapus Favorite",Toast.LENGTH_SHORT);
+                            toast.show();
+                        }
+                    }
+                });
     }
+
+
+
     private void prepare(){
         title = findViewById(R.id.detail_tv_title);
         language = findViewById(R.id.detail_tv_language);
@@ -52,19 +91,18 @@ public class DetailMovieActivity extends AppCompatActivity {
             @Override
             public void run() {
                 try {
-                    Thread.sleep(5000);
+                    Thread.sleep(2000);
                 }catch (Exception e){
                     e.printStackTrace();
                 }
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        Movie movie = getIntent().getParcelableExtra(DATA_MOVIE);
 
                         title_toolbar.setText(movie.getTitle());
                         title.setText(movie.getTitle());
-                        rating.setText(Double.toString(movie.getVoteAverage()));
-                        vote.setText(Double.toString(movie.getVoteCount()));
+                        rating.setText(String.valueOf(movie.getVoteAverage()));
+                        vote.setText(String.valueOf(movie.getVoteCount()));
                         language.setText(movie.getOriginalLanguage());
                         release.setText(movie.getReleaseDate());
                         storyline.setText(movie.getOverview());
@@ -90,6 +128,12 @@ public class DetailMovieActivity extends AppCompatActivity {
                 });
             }
         }).start();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        movieHelper.close();
     }
 }
 

@@ -4,16 +4,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".fragment.TvShowFragment">
+    tools:context=".fragment.MovieFavoriteFragment">
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/rv"
+        android:id="@+id/rvMovieFav"
         tools:listitem="@layout/item"/>
 
     <ProgressBar
-        android:id="@+id/progressBar2"
+        android:id="@+id/progressBar3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="gone"

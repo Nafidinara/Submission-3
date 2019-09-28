@@ -1,10 +1,11 @@
 package com.nafidinara.threesubmission.activity;
 
-import android.content.ClipData;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -13,17 +14,19 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
 import com.nafidinara.threesubmission.R;
+import com.nafidinara.threesubmission.fragment.MovieFavoriteFragment;
 import com.nafidinara.threesubmission.fragment.MovieFragment;
+import com.nafidinara.threesubmission.fragment.TvShowFavFragment;
 import com.nafidinara.threesubmission.fragment.TvShowFragment;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class SecondActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private TabLayout tabLayout;
     private ViewPager viewPager;
@@ -31,15 +34,14 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_second);
 
-        toolbar = findViewById(R.id.toolbar);
-        tabLayout = findViewById(R.id.tabLayout);
-        viewPager = findViewById(R.id.viewPager);
+        toolbar = findViewById(R.id.toolbar1);
+        tabLayout = findViewById(R.id.tabLayout1);
+        viewPager = findViewById(R.id.viewPager1);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
-            toolbar.setTitle(getString(R.string.app_name));
-
+            toolbar.setTitle(getString(R.string.fav_title));
         }
 
         toolbar.inflateMenu(R.menu.menu);
@@ -52,10 +54,9 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(mIntent);
                         return true;
                     case R.id.myfav:
-                        Intent intent = new Intent(getApplicationContext(),SecondActivity.class);
-                        startActivity(intent);
                         return true;
                     case R.id.mymain:
+                        finish();
                         return true;
                 }
                 return true;
@@ -69,9 +70,9 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void setupViewPager (ViewPager viewPager){
-        viewPagerAdapter adapter = new viewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new MovieFragment(),getString(R.string.fragment_movie_title));
-        adapter.addFragment(new TvShowFragment(),getString(R.string.fragment_tvshow_title));
+        SecondActivity.viewPagerAdapter adapter = new SecondActivity.viewPagerAdapter(getSupportFragmentManager());
+        adapter.addFragment(new MovieFavoriteFragment(),getString(R.string.fav_movie));
+        adapter.addFragment(new TvShowFavFragment(),getString(R.string.fav_tvshow));
 
         viewPager.setAdapter(adapter);
     }
@@ -106,3 +107,4 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 }
+

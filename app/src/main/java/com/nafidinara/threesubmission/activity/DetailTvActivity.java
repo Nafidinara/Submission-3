@@ -8,10 +8,15 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.support.v7.widget.Toolbar;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.github.ivbaranov.mfb.MaterialFavoriteButton;
 import com.nafidinara.threesubmission.R;
+import com.nafidinara.threesubmission.db.TvHelper;
 import com.nafidinara.threesubmission.model.TvShow;
+
+import java.util.ArrayList;
 
 public class DetailTvActivity extends AppCompatActivity {
     public static final String DATA_TVSHOW = "data_tvshow";
@@ -21,17 +26,44 @@ public class DetailTvActivity extends AppCompatActivity {
     ImageView image_Poster, image_bg;
     ProgressBar progressBar;
     Toolbar toolbar;
+    TvShow tvShow;
+    ArrayList<TvShow> list;
 
+    private TvHelper tvHelper;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_tv);
+        final MaterialFavoriteButton favBtn = findViewById(R.id.btn_fav1);
+
+        tvHelper = TvHelper.getInst(getApplicationContext());
+        tvHelper.open();
+        tvShow = getIntent().getParcelableExtra(DATA_TVSHOW);
 
         prepare();
-
         getTVShowDetail();
+
+        favBtn.setOnFavoriteChangeListener(
+                new MaterialFavoriteButton.OnFavoriteChangeListener() {
+                    @Override
+                    public void onFavoriteChanged(MaterialFavoriteButton buttonView, boolean favorite) {
+                        if (favorite){
+                            list = tvHelper.getAllMovies();
+                            tvHelper.tvInsert(tvShow);
+                            Toast toast = Toast.makeText(getApplicationContext(),"Ditambahkan Favorite",Toast.LENGTH_SHORT);
+                            toast.show();
+
+                        }
+                        else {
+                            list = tvHelper.getAllMovies();
+                            tvHelper.tvDelete(tvShow.getTitle());
+                            Toast toast = Toast.makeText(getApplicationContext(),"Dihapus Favorite",Toast.LENGTH_SHORT);
+                            toast.show();
+                        }
+                    }
+                });
     }
 
     private void prepare() {
@@ -93,5 +125,10 @@ public class DetailTvActivity extends AppCompatActivity {
                 });
             }
         }).start();
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        tvHelper.close();
     }
 }

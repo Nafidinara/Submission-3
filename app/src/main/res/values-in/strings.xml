@@ -9,4 +9,9 @@
     <string name="language_subtitle">Bahasa</string>
     <string name="vote_count">Voting</string>
     <string name="storyline_subtitle">Alur Cerita</string>
+    <string name="myfavorite">My Favorite</string>
+    <string name="fav_movie">Favorite Movie</string>
+    <string name="fav_tvshow">Favorite TV</string>
+    <string name="mymain">Main Activity</string>
+    <string name="fav_title">Favorite</string>
 </resources>

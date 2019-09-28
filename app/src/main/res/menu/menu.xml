@@ -5,4 +5,12 @@
         android:id="@+id/action_change_settings"
         android:title="@string/language"
         app:showAsAction="never"/>
+    <item
+        android:id="@+id/myfav"
+        android:title="@string/myfavorite"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/mymain"
+        android:title="@string/mymain"
+        app:showAsAction="never"/>
 </menu>

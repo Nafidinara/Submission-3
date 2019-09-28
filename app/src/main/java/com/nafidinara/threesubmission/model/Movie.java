@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Movie implements Parcelable {
+    @SerializedName("id")
+    private Integer id;
     @SerializedName("poster_path")
     private String posterPath;
     @SerializedName("original_language")
@@ -28,18 +30,29 @@ public class Movie implements Parcelable {
     @SerializedName("vote_count")
     private Integer voteCount;
     @SerializedName("results")
-    private List<Movie> results;
+    private ArrayList<Movie> results;
 
-    public Movie(Integer voteCount, Double voteAverage, String title, String posterPath, String originalLanguage, List<Integer> genreIds, String backdropPath, String overview, String releaseDate) {
-        this.voteCount = voteCount;
-        this.voteAverage = voteAverage;
-        this.title = title;
-        this.posterPath = posterPath;
-        this.originalLanguage = originalLanguage;
-        this.genreIds = genreIds;
-        this.backdropPath = backdropPath;
-        this.overview = overview;
-        this.releaseDate = releaseDate;
+    //Integer voteCount, Double voteAverage, String title, String posterPath, String originalLanguage, List<Integer> genreIds, String backdropPath, String overview, String releaseDate, Integer id
+
+    public Movie() {
+//        this.voteCount = voteCount;
+//        this.voteAverage = voteAverage;
+//        this.title = title;
+//        this.posterPath = posterPath;
+//        this.originalLanguage = originalLanguage;
+//        this.genreIds = genreIds;
+//        this.backdropPath = backdropPath;
+//        this.overview = overview;
+//        this.releaseDate = releaseDate;
+//        this.id = id;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getPosterPath() {
@@ -114,11 +127,11 @@ public class Movie implements Parcelable {
         this.voteCount = voteCount;
     }
 
-    public List<Movie> getResults() {
+    public ArrayList<Movie> getResults() {
         return results;
     }
 
-    public void setResults(List<Movie> results) {
+    public void setResults(ArrayList<Movie> results) {
         this.results = results;
     }
 
@@ -130,6 +143,7 @@ public class Movie implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeValue(this.id);
         dest.writeString(this.posterPath);
         dest.writeString(this.originalLanguage);
         dest.writeString(this.title);
@@ -139,10 +153,11 @@ public class Movie implements Parcelable {
         dest.writeString(this.overview);
         dest.writeValue(this.voteAverage);
         dest.writeValue(this.voteCount);
-        dest.writeList(this.results);
+        dest.writeTypedList(this.results);
     }
 
     protected Movie(Parcel in) {
+        this.id = (Integer) in.readValue(Integer.class.getClassLoader());
         this.posterPath = in.readString();
         this.originalLanguage = in.readString();
         this.title = in.readString();
@@ -153,11 +168,10 @@ public class Movie implements Parcelable {
         this.overview = in.readString();
         this.voteAverage = (Double) in.readValue(Double.class.getClassLoader());
         this.voteCount = (Integer) in.readValue(Integer.class.getClassLoader());
-        this.results = new ArrayList<Movie>();
-        in.readList(this.results, Movie.class.getClassLoader());
+        this.results = in.createTypedArrayList(Movie.CREATOR);
     }
 
-    public static final Parcelable.Creator<Movie> CREATOR = new Parcelable.Creator<Movie>() {
+    public static final Creator<Movie> CREATOR = new Creator<Movie>() {
         @Override
         public Movie createFromParcel(Parcel source) {
             return new Movie(source);

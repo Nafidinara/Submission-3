@@ -12,30 +12,40 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.nafidinara.threesubmission.R;
+import com.nafidinara.threesubmission.activity.DetailMovieActivity;
 import com.nafidinara.threesubmission.activity.DetailTvActivity;
+import com.nafidinara.threesubmission.model.Movie;
 import com.nafidinara.threesubmission.model.TvShow;
 
 import java.util.ArrayList;
 
-public class AdapterTvShow extends RecyclerView.Adapter<AdapterTvShow.ViewHolderTvShow> {
+public class AdapterFavTv extends RecyclerView.Adapter<AdapterFavTv.ViewHolderFavTv>{
     private Context context;
     private ArrayList<TvShow> list;
 
-    public AdapterTvShow(Context context, ArrayList<TvShow> list) {
+    public AdapterFavTv(Context context) {
         this.context = context;
+    }
+
+    public ArrayList<TvShow> getList() {
+        return list;
+    }
+
+    public void setList(ArrayList<TvShow> list) {
         this.list = list;
+        notifyDataSetChanged();
     }
 
     @NonNull
     @Override
-    public ViewHolderTvShow onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public AdapterFavTv.ViewHolderFavTv onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(context).inflate(R.layout.item,viewGroup,false);
-        return new ViewHolderTvShow(v);
+        return new AdapterFavTv.ViewHolderFavTv(v);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolderTvShow viewHolderTvShow, int i) {
-        viewHolderTvShow.bind(list.get(i));
+    public void onBindViewHolder(@NonNull AdapterFavTv.ViewHolderFavTv viewHolderFavTv, int i) {
+        viewHolderFavTv.bind(list.get(i));
     }
 
     @Override
@@ -43,17 +53,15 @@ public class AdapterTvShow extends RecyclerView.Adapter<AdapterTvShow.ViewHolder
         return list.size();
     }
 
-    public class ViewHolderTvShow extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class ViewHolderFavTv extends RecyclerView.ViewHolder implements View.OnClickListener{
         ImageView image_main;
-        TextView title,release,genre;
-
-        public ViewHolderTvShow(@NonNull View itemView) {
+        TextView title, release, vote;
+        public ViewHolderFavTv(@NonNull View itemView) {
             super(itemView);
-
             title = itemView.findViewById(R.id.txt_title_items);
             release = itemView.findViewById(R.id.txt_release_items);
             image_main = itemView.findViewById(R.id.img_items);
-            genre = itemView.findViewById(R.id.txt_genre_items);
+            vote = itemView.findViewById(R.id.txt_genre_items);
 
             itemView.setOnClickListener(this);
         }
@@ -61,12 +69,12 @@ public class AdapterTvShow extends RecyclerView.Adapter<AdapterTvShow.ViewHolder
         public void bind(TvShow tvShow) {
             title.setText(tvShow.getTitle());
             release.setText(tvShow.getReleaseDate());
-            genre.setText(String.valueOf(tvShow.getVoteCount()));
+            vote.setText(String.valueOf(tvShow.getVoteCount()));
 
-            Glide.with(itemView.getContext()).load("https://image.tmdb.org/t/p/w500"+tvShow.getPosterPath()).into(image_main);
-
+            Glide.with(itemView.getContext())
+                    .load("https://image.tmdb.org/t/p/w500" + tvShow.getPosterPath())
+                    .into(image_main);
         }
-
         @Override
         public void onClick(View v) {
             int i = getAdapterPosition();
@@ -74,7 +82,6 @@ public class AdapterTvShow extends RecyclerView.Adapter<AdapterTvShow.ViewHolder
             Intent intent = new Intent(v.getContext(), DetailTvActivity.class);
             intent.putExtra(DetailTvActivity.DATA_TVSHOW,tvShow);
             v.getContext().startActivity(intent);
-
         }
     }
 }
