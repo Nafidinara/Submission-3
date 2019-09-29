@@ -18,7 +18,6 @@ import com.nafidinara.threesubmission.db.MovieHelper;
 import com.nafidinara.threesubmission.model.Movie;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class DetailMovieActivity extends AppCompatActivity {
     public static final String DATA_MOVIE = "data_movie";

@@ -16,7 +16,6 @@ import com.nafidinara.threesubmission.activity.DetailMovieActivity;
 import com.nafidinara.threesubmission.model.Movie;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class AdapterMovie extends RecyclerView.Adapter<AdapterMovie.ViewHolderMovie> {
     private Context context;

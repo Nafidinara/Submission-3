@@ -12,9 +12,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.nafidinara.threesubmission.R;
-import com.nafidinara.threesubmission.activity.DetailMovieActivity;
 import com.nafidinara.threesubmission.activity.DetailTvActivity;
-import com.nafidinara.threesubmission.model.Movie;
 import com.nafidinara.threesubmission.model.TvShow;
 
 import java.util.ArrayList;

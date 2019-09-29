@@ -15,13 +15,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.nafidinara.threesubmission.R;
 import com.nafidinara.threesubmission.fragment.MovieFavoriteFragment;
-import com.nafidinara.threesubmission.fragment.MovieFragment;
 import com.nafidinara.threesubmission.fragment.TvShowFavFragment;
-import com.nafidinara.threesubmission.fragment.TvShowFragment;
 
 import java.util.ArrayList;
 import java.util.List;

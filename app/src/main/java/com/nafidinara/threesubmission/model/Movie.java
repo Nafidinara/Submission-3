@@ -32,19 +32,8 @@ public class Movie implements Parcelable {
     @SerializedName("results")
     private ArrayList<Movie> results;
 
-    //Integer voteCount, Double voteAverage, String title, String posterPath, String originalLanguage, List<Integer> genreIds, String backdropPath, String overview, String releaseDate, Integer id
 
     public Movie() {
-//        this.voteCount = voteCount;
-//        this.voteAverage = voteAverage;
-//        this.title = title;
-//        this.posterPath = posterPath;
-//        this.originalLanguage = originalLanguage;
-//        this.genreIds = genreIds;
-//        this.backdropPath = backdropPath;
-//        this.overview = overview;
-//        this.releaseDate = releaseDate;
-//        this.id = id;
     }
 
     public Integer getId() {

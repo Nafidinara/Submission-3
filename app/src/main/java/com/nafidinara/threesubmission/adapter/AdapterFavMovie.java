@@ -35,11 +35,11 @@ public class AdapterFavMovie extends RecyclerView.Adapter<AdapterFavMovie.ViewHo
         this.context = context;
     }
 
-    public void setItems(ArrayList<Movie> items){
-//        list.clear();
-        list.addAll(items);
-        notifyDataSetChanged();
-    }
+//    public void setItems(ArrayList<Movie> items){
+//       list.clear();
+//        list.addAll(items);
+//        notifyDataSetChanged();
+//    }
 
     @NonNull
     @Override

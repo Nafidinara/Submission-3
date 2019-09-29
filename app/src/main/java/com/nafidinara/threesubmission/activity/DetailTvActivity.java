@@ -98,8 +98,8 @@ public class DetailTvActivity extends AppCompatActivity {
 
                         title_toolbar.setText(tvShow.getTitle());
                         title.setText(tvShow.getTitle());
-                        rating.setText(Double.toString(tvShow.getVoteAverage()));
-                        vote.setText(Double.toString(tvShow.getVoteCount()));
+                        rating.setText(String.valueOf(tvShow.getVoteAverage()));
+                        vote.setText(String.valueOf(tvShow.getVoteCount()));
                         language.setText(tvShow.getOriginalLanguage());
                         release.setText(tvShow.getReleaseDate());
                         storyline.setText(tvShow.getOverview());

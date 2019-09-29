@@ -10,7 +10,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 import com.nafidinara.threesubmission.model.Movie;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import static com.nafidinara.threesubmission.db.MovieDbContract.MovieColumns.BACKDROP_PATH;
 import static com.nafidinara.threesubmission.db.MovieDbContract.MovieColumns.ID;

@@ -12,11 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.nafidinara.threesubmission.R;
-import com.nafidinara.threesubmission.adapter.AdapterFavMovie;
 import com.nafidinara.threesubmission.adapter.AdapterFavTv;
-import com.nafidinara.threesubmission.db.MovieHelper;
 import com.nafidinara.threesubmission.db.TvHelper;
-import com.nafidinara.threesubmission.model.Movie;
 import com.nafidinara.threesubmission.model.TvShow;
 
 import java.util.ArrayList;
